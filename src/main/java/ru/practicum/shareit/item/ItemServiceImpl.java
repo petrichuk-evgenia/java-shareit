@@ -7,6 +7,7 @@ import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.UserService;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
             throw new ValidationException("Статус доступности должен быть указан");
         }
 
-        Item item = ItemMapper.toItem(itemDto, ownerId);
+        Item item = ItemMapper.toItem(itemDto, UserMapper.toUser(userService.findById(ownerId)));
         Item savedItem = itemRepository.save(item);
         return ItemMapper.toItemDto(savedItem);
     }
@@ -66,7 +67,7 @@ public class ItemServiceImpl implements ItemService {
         Item existingItem = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException("Вещь с id=" + itemId + " не найдена"));
 
-        if (!ownerId.equals(existingItem.getOwnerId())) {
+        if (!ownerId.equals(existingItem.getOwner().getId())) {
             throw new NotFoundException("Редактировать вещь может только её владелец");
         }
 
