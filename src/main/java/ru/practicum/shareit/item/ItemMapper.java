@@ -36,17 +36,4 @@ public class ItemMapper {
 
         return item;
     }
-
-    public static Item toItem(ItemDto itemDto) {
-        if (itemDto == null) {
-            return null;
-        }
-
-        Item item = new Item();
-        item.setName(itemDto.getName());
-        item.setDescription(itemDto.getDescription());
-        item.setAvailable(itemDto.getAvailable());
-
-        return item;
-    }
 }
