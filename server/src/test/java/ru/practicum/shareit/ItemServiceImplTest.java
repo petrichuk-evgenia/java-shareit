@@ -52,7 +52,7 @@ class ItemServiceImplTest {
     private ItemRequest request;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         owner = new User();
         owner.setName("Owner");
         owner.setEmail("owner@yandex.ru");
@@ -71,7 +71,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldCreateItem() {
+    public void shouldCreateItem() {
         ItemDto dto = ItemDto.builder()
                 .name("Drill")
                 .description("Powerful")
@@ -86,7 +86,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldCreateItemWithRequest() {
+    public void shouldCreateItemWithRequest() {
         ItemDto dto = ItemDto.builder()
                 .name("Drill")
                 .description("Powerful")
@@ -100,7 +100,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenUserNotFoundInCreate() {
+    public void shouldThrowExceptionWhenUserNotFoundInCreate() {
         ItemDto dto = ItemDto.builder().name("Drill").description("Desc").available(true).build();
 
         assertThatThrownBy(() -> itemService.create(dto, 999L))
@@ -109,7 +109,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenRequestNotFound() {
+    public void shouldThrowExceptionWhenRequestNotFound() {
         ItemDto dto = ItemDto.builder()
                 .name("Drill")
                 .description("Desc")
@@ -123,7 +123,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldGetItemById() {
+    public void shouldGetItemById() {
         Item item = createItem("Drill", "Powerful", true);
         itemRepository.save(item);
 
@@ -134,14 +134,14 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenItemNotFound() {
+    public void shouldThrowExceptionWhenItemNotFound() {
         assertThatThrownBy(() -> itemService.get(999L))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("Предмет с id=999 не найден");
     }
 
     @Test
-    void shouldUpdateItem() {
+    public void shouldUpdateItem() {
         Item item = createItem("Drill", "Old desc", true);
         itemRepository.save(item);
 
@@ -157,7 +157,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldUpdateOnlyPartially() {
+    public void shouldUpdateOnlyPartially() {
         Item item = createItem("Drill", "Desc", true);
         itemRepository.save(item);
 
@@ -172,7 +172,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenNotOwnerUpdatesItem() {
+    public void shouldThrowExceptionWhenNotOwnerUpdatesItem() {
         Item item = createItem("Drill", "Desc", true);
         itemRepository.save(item);
 
@@ -184,7 +184,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenItemToUpdateNotFound() {
+    public void shouldThrowExceptionWhenItemToUpdateNotFound() {
         ItemDto updateDto = ItemDto.builder().name("New").build();
 
         assertThatThrownBy(() -> itemService.update(999L, updateDto, owner.getId()))
@@ -193,7 +193,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldSearchItemsByAvailableText() {
+    public void shouldSearchItemsByAvailableText() {
         Item item1 = createItem("Drill", "Powerful drill", true);
         Item item2 = createItem("Screwdriver", "Simple screwdriver", true);
         Item item3 = createItem("Laptop", "Gaming laptop", false);
@@ -206,19 +206,19 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenSearchTextIsEmpty() {
+    public void shouldReturnEmptyListWhenSearchTextIsEmpty() {
         Collection<ItemDto> result = itemService.search("");
         assertThat(result).isEmpty();
     }
 
     @Test
-    void shouldReturnEmptyListWhenSearchTextIsNull() {
+    public void shouldReturnEmptyListWhenSearchTextIsNull() {
         Collection<ItemDto> result = itemService.search(null);
         assertThat(result).isEmpty();
     }
 
     @Test
-    void shouldGetItemsWithBookingsForOwner() {
+    public void shouldGetItemsWithBookingsForOwner() {
         Item item1 = createItem("Drill", "Desc", true);
         Item item2 = createItem("Screwdriver", "Desc", true);
         itemRepository.saveAll(List.of(item1, item2));
@@ -240,7 +240,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldGetItemsWithBookingsWhenNoBookings() {
+    public void shouldGetItemsWithBookingsWhenNoBookings() {
         Item item = createItem("Drill", "Desc", true);
         itemRepository.save(item);
 
@@ -252,7 +252,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldCreateComment() {
+    public void shouldCreateComment() {
         Item item = createItem("Drill", "Desc", true);
         itemRepository.save(item);
 
@@ -270,7 +270,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenUserHasNoPastBooking() {
+    public void shouldThrowExceptionWhenUserHasNoPastBooking() {
         Item item = createItem("Drill", "Desc", true);
         itemRepository.save(item);
 
@@ -283,7 +283,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenItemNotFoundInComment() {
+    public void shouldThrowExceptionWhenItemNotFoundInComment() {
         CommentDto commentDto = new CommentDto();
         commentDto.setText("Test");
 
@@ -293,7 +293,7 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenUserNotFoundInComment() {
+    public void shouldThrowExceptionWhenUserNotFoundInComment() {
         Item item = createItem("Drill", "Desc", true);
         itemRepository.save(item);
 

@@ -33,7 +33,7 @@ public class BookingControllerTest {
     private BookingServiceImpl bookingService;
 
     @Test
-    void shouldApproveBooking() throws Exception {
+    public void shouldApproveBooking() throws Exception {
         BookingResponseDto responseDto = new BookingResponseDto();
         responseDto.setId(1L);
         responseDto.setStatus(Status.APPROVED);
@@ -56,7 +56,7 @@ public class BookingControllerTest {
     }
 
     @Test
-    void shouldCreateBooking() throws Exception {
+    public void shouldCreateBooking() throws Exception {
         BookingDto dto = new BookingDto();
         dto.setItemId(1L);
         dto.setStart(LocalDateTime.now().plusDays(1));

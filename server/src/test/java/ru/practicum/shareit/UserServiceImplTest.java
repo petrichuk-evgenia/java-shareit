@@ -30,14 +30,14 @@ class UserServiceImplTest {
     private UserDto userDto;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         userDto = new UserDto();
         userDto.setName("John");
         userDto.setEmail("john@yandex.ru");
     }
 
     @Test
-    void shouldCreateUser() {
+    public void shouldCreateUser() {
         UserDto created = userService.create(userDto);
 
         assertThat(created.getId()).isNotNull();
@@ -50,7 +50,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenNameIsEmpty() {
+    public void shouldThrowExceptionWhenNameIsEmpty() {
         userDto.setName("");
         assertThatThrownBy(() -> userService.create(userDto))
                 .isInstanceOf(NotFoundException.class)
@@ -63,7 +63,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenEmailIsDuplicate() {
+    public void shouldThrowExceptionWhenEmailIsDuplicate() {
         userService.create(userDto);
 
         UserDto duplicate = new UserDto();
@@ -76,7 +76,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldAcceptEmailCaseInsensitive() {
+    public void shouldAcceptEmailCaseInsensitive() {
         UserDto first = new UserDto();
         first.setName("Alice");
         first.setEmail("ALICE@YANDEX.RU");
@@ -92,7 +92,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldGetAllUsers() {
+    public void shouldGetAllUsers() {
         userService.create(userDto);
 
         UserDto user2 = new UserDto();
@@ -108,14 +108,14 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenNoUsers() {
+    public void shouldReturnEmptyListWhenNoUsers() {
         Collection<UserDto> users = userService.getUsers();
 
         assertThat(users).isEmpty();
     }
 
     @Test
-    void shouldGetUserById() {
+    public void shouldGetUserById() {
         UserDto created = userService.create(userDto);
 
         UserDto found = userService.getUser(created.getId());
@@ -126,14 +126,14 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenUserNotFound() {
+    public void shouldThrowExceptionWhenUserNotFound() {
         assertThatThrownBy(() -> userService.getUser(999L))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("Пользователь с id=999 не найден");
     }
 
     @Test
-    void shouldUpdateUserName() {
+    public void shouldUpdateUserName() {
         UserDto created = userService.create(userDto);
 
         UserDto updateDto = new UserDto();
@@ -146,7 +146,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldUpdateUserEmail() {
+    public void shouldUpdateUserEmail() {
         UserDto created = userService.create(userDto);
 
         UserDto updateDto = new UserDto();
@@ -159,7 +159,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldUpdateBothNameAndEmail() {
+    public void shouldUpdateBothNameAndEmail() {
         UserDto created = userService.create(userDto);
 
         UserDto updateDto = new UserDto();
@@ -173,7 +173,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldNotUpdateWhenFieldsAreNull() {
+    public void shouldNotUpdateWhenFieldsAreNull() {
         UserDto created = userService.create(userDto);
 
         UserDto updateDto = new UserDto();
@@ -185,7 +185,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenEmailIsTakenByOtherUser() {
+    public void shouldThrowExceptionWhenEmailIsTakenByOtherUser() {
         UserDto user1 = new UserDto();
         user1.setName("Alice");
         user1.setEmail("alice@yandex.ru");
@@ -205,7 +205,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldAllowUpdatingToOwnEmail() {
+    public void shouldAllowUpdatingToOwnEmail() {
         UserDto created = userService.create(userDto);
 
         UserDto updateDto = new UserDto();
@@ -216,7 +216,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldDeleteUser() {
+    public void shouldDeleteUser() {
         UserDto created = userService.create(userDto);
 
         userService.delete(created.getId());
@@ -226,7 +226,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenDeletingNonExistentUser() {
+    public void shouldThrowExceptionWhenDeletingNonExistentUser() {
         assertThatThrownBy(() -> userService.delete(999L))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("Пользователь с id=999 не найден");

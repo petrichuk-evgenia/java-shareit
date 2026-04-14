@@ -1,7 +1,12 @@
 package ru.practicum.shareit.booking.model;
 
 public enum State {
-    ALL, CURRENT, PAST, FUTURE, WAITING, REJECTED;
+    ALL,
+    CURRENT,
+    PAST,
+    FUTURE,
+    WAITING,
+    REJECTED;
 
     public static State from(String value) {
         try {

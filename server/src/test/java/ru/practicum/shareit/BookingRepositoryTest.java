@@ -29,7 +29,7 @@ public class BookingRepositoryTest {
     private ItemRepository itemRepository;
 
     @Test
-    void shouldFindBookingsByBookerIdAndStatus() {
+    public void shouldFindBookingsByBookerIdAndStatus() {
         User booker = new User();
         booker.setName("Booker");
         booker.setEmail("booker@yandex.ru");

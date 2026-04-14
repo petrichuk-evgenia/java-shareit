@@ -22,7 +22,7 @@ public class ItemRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    void shouldFindItemsByOwnerId() {
+    public void shouldFindItemsByOwnerId() {
         User owner = new User();
         owner.setName("Owner");
         owner.setEmail("owner@yandex.ru");
@@ -50,7 +50,7 @@ public class ItemRepositoryTest {
     }
 
     @Test
-    void shouldSearchItemsByNameOrDescription() {
+    public void shouldSearchItemsByNameOrDescription() {
         User owner = new User();
         owner.setName("Owner");
         owner.setEmail("owner@yandex.ru");

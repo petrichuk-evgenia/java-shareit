@@ -22,7 +22,7 @@ public class ItemRequestRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    void shouldFindAllByRequestorIdOrderByCreatedDesc() {
+    public void shouldFindAllByRequestorIdOrderByCreatedDesc() {
         User requestor = new User();
         requestor.setName("Requestor");
         requestor.setEmail("requestor@yandex.ru");
@@ -49,7 +49,7 @@ public class ItemRequestRepositoryTest {
     }
 
     @Test
-    void shouldFindByRequestorIdNotOrderByCreatedDesc() {
+    public void shouldFindByRequestorIdNotOrderByCreatedDesc() {
         User requestor = new User();
         requestor.setName("Requestor");
         requestor.setEmail("requestor@yandex.ru");

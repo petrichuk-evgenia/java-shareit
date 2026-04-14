@@ -43,7 +43,7 @@ class ItemRequestServiceImplTest {
     private User ownerOfItem;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         requestor = new User();
         requestor.setName("Requestor");
         requestor.setEmail("requestor@yandex.ru");
@@ -61,7 +61,7 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void shouldCreateRequest() {
+    public void shouldCreateRequest() {
         ItemRequestDto dto = new ItemRequestDto();
         dto.setDescription("Need a drill");
 
@@ -73,7 +73,7 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenUserNotFoundInCreate() {
+    public void shouldThrowExceptionWhenUserNotFoundInCreate() {
         ItemRequestDto dto = new ItemRequestDto();
         dto.setDescription("Need a drill");
 
@@ -83,7 +83,7 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void shouldGetAllRequestsByRequestor() {
+    public void shouldGetAllRequestsByRequestor() {
         ItemRequest request1 = createRequest("Need a drill", requestor);
         ItemRequest request2 = createRequest("Need a screwdriver", requestor);
         itemRequestRepository.saveAll(List.of(request1, request2));
@@ -96,21 +96,21 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenRequestorHasNoRequests() {
+    public void shouldReturnEmptyListWhenRequestorHasNoRequests() {
         List<ItemRequestWithItem> requests = itemRequestService.getRequests(otherUser.getId());
 
         assertThat(requests).isEmpty();
     }
 
     @Test
-    void shouldThrowExceptionWhenRequestorNotFound() {
+    public void shouldThrowExceptionWhenRequestorNotFound() {
         assertThatThrownBy(() -> itemRequestService.getRequests(999L))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("Пользователь с id=999 не найден");
     }
 
     @Test
-    void shouldGetAllOtherRequests() {
+    public void shouldGetAllOtherRequests() {
         ItemRequest request1 = createRequest("Need a drill", requestor);
         itemRequestRepository.save(request1);
 
@@ -125,21 +125,21 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenNoOtherRequests() {
+    public void shouldReturnEmptyListWhenNoOtherRequests() {
         List<ItemRequestDto> requests = itemRequestService.getAllRequests(otherUser.getId());
 
         assertThat(requests).isEmpty();
     }
 
     @Test
-    void shouldThrowExceptionWhenUserNotFoundInGetAllRequests() {
+    public void shouldThrowExceptionWhenUserNotFoundInGetAllRequests() {
         assertThatThrownBy(() -> itemRequestService.getAllRequests(999L))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("Пользователь с id=999 не найден");
     }
 
     @Test
-    void shouldGetRequestById() {
+    public void shouldGetRequestById() {
         ItemRequest request = createRequest("Need a drill", requestor);
         itemRequestRepository.save(request);
 
@@ -160,7 +160,7 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void shouldGetRequestWithoutItems() {
+    public void shouldGetRequestWithoutItems() {
         ItemRequest request = createRequest("Need a drill", requestor);
         itemRequestRepository.save(request);
 
@@ -171,14 +171,14 @@ class ItemRequestServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenRequestNotFound() {
+    public void shouldThrowExceptionWhenRequestNotFound() {
         assertThatThrownBy(() -> itemRequestService.getRequestById(999L, requestor.getId()))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("Запрос с id=999 не найден");
     }
 
     @Test
-    void shouldThrowExceptionWhenUserNotFoundInGetRequestById() {
+    public void shouldThrowExceptionWhenUserNotFoundInGetRequestById() {
         ItemRequest request = createRequest("Need a drill", requestor);
         itemRequestRepository.save(request);
 

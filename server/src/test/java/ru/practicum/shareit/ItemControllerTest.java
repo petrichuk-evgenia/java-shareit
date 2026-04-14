@@ -38,7 +38,7 @@ class ItemControllerTest {
     private final String baseUrl = "/items";
 
     @Test
-    void shouldGetItemById() throws Exception {
+    public void shouldGetItemById() throws Exception {
         ItemWithBookingsDto responseDto = createItemWithBookingsDto();
 
         when(itemService.get(1L)).thenReturn(responseDto);
@@ -54,7 +54,7 @@ class ItemControllerTest {
     }
 
     @Test
-    void shouldCreateItem() throws Exception {
+    public void shouldCreateItem() throws Exception {
         ItemDto requestDto = new ItemDto();
         requestDto.setName("Drill");
         requestDto.setDescription("Powerful");
@@ -79,7 +79,7 @@ class ItemControllerTest {
     }
 
     @Test
-    void shouldUpdateItem() throws Exception {
+    public void shouldUpdateItem() throws Exception {
         ItemDto updateDto = new ItemDto();
         updateDto.setName("New name");
 
@@ -98,7 +98,7 @@ class ItemControllerTest {
     }
 
     @Test
-    void shouldGetUserItems() throws Exception {
+    public void shouldGetUserItems() throws Exception {
         ItemWithBookingsDto item = createItemWithBookingsDto();
 
         when(itemService.getItemsWithBookings(1L)).thenReturn(List.of(item));
@@ -111,7 +111,7 @@ class ItemControllerTest {
     }
 
     @Test
-    void shouldSearchItems() throws Exception {
+    public void shouldSearchItems() throws Exception {
         ItemDto item = new ItemDto();
         item.setId(1L);
         item.setName("Drill");
@@ -126,7 +126,7 @@ class ItemControllerTest {
     }
 
     @Test
-    void shouldCreateComment() throws Exception {
+    public void shouldCreateComment() throws Exception {
         CommentDto commentDto = new CommentDto();
         commentDto.setText("Good tool!");
 

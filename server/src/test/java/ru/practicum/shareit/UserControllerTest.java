@@ -32,7 +32,7 @@ public class UserControllerTest {
     private UserServiceImpl userService;
 
     @Test
-    void shouldCreateUser() throws Exception {
+    public void shouldCreateUser() throws Exception {
         UserDto dto = new UserDto();
         dto.setId(1L);
         dto.setName("John");
@@ -49,7 +49,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void shouldGetAllUsers() throws Exception {
+    public void shouldGetAllUsers() throws Exception {
         UserDto dto = new UserDto();
         dto.setId(1L);
         dto.setName("John");

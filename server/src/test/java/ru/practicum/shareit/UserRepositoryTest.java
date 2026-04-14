@@ -17,7 +17,7 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    void shouldFindUserByEmail() {
+    public void shouldFindUserByEmail() {
         User user = new User();
         user.setName("John");
         user.setEmail("john@yandex.ru");
